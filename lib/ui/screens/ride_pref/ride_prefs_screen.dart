@@ -1,5 +1,5 @@
-import 'package:blabla/model/ride_pref/ride_pref.dart';
-import 'package:blabla/services/ride_prefs_service.dart';
+import '../../../model/ride_pref/ride_pref.dart';
+import '../../../services/ride_prefs_service.dart';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import 'widgets/ride_prefs_form.dart';
