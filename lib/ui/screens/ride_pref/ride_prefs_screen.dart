@@ -25,39 +25,42 @@ class RidePrefsScreen extends StatelessWidget {
   }
 
   Widget _buildForeground() {
-    return Column(
-      children: [
-        // 1 - THE HEADER
-        SizedBox(height: 16),
-        Align(
-          alignment: AlignmentGeometry.center,
-          child: Text(
-            "Your pick of rides at low price",
-            style: BlaTextStyles.heading.copyWith(color: Colors.white),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // 1 - THE HEADER
+          SizedBox(height: 16),
+          Align(
+            alignment: AlignmentGeometry.center,
+            child: Text(
+              "Your pick of rides at low price",
+              style: BlaTextStyles.heading.copyWith(color: Colors.white),
+            ),
           ),
-        ),
-        SizedBox(height: 100),
+          SizedBox(height: 100),
 
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: BlaSpacings.xxl),
-          decoration: BoxDecoration(
-            color: Colors.white, // White background
-            borderRadius: BorderRadius.circular(16), // Rounded corners
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // 2 - THE FORM
-              RidePrefForm(initRidePref: RidePrefsService.selectedRidePref),
-              SizedBox(height: BlaSpacings.m),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: BlaSpacings.xxl),
+            decoration: BoxDecoration(
+              color: Colors.white, // White background
+              borderRadius: BorderRadius.circular(16), // Rounded corners
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // 2 - THE FORM
+                RidePrefForm(initRidePref: RidePrefsService.selectedRidePref),
+                SizedBox(height: BlaSpacings.m),
 
-              // 3 - THE HISTORY
-              _buildHistory(),
-            ],
+                // 3 - THE HISTORY
+                _buildHistory(),
+              ],
+            ),
           ),
-        ),
-      ],
+          SizedBox(height: BlaSpacings.l),
+        ],
+      ),
     );
   }
 
