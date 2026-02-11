@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../data/dummy_data.dart';
 import '../../../../model/ride/locations.dart';
 import '../../../../model/ride_pref/ride_pref.dart';
 import '../../../../utils/date_time_utils.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/actions/bla_button.dart';
+import '../../../widgets/inputs/location_picker.dart';
 
 ///
 /// A Ride Preference From is a view to select:
@@ -58,7 +58,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
   }
 
   Future<void> _selectDeparture() async {
-    final selected = await _showLocationPicker(context, 'Select Departure');
+    final selected = await showLocationPicker(context, title: 'Select Departure');
     if (selected != null) {
       setState(() {
         departure = selected;
@@ -67,7 +67,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
   }
 
   Future<void> _selectArrival() async {
-    final selected = await _showLocationPicker(context, 'Select Arrival');
+    final selected = await showLocationPicker(context, title: 'Select Arrival');
     if (selected != null) {
       setState(() {
         arrival = selected;
@@ -91,61 +91,26 @@ class _RidePrefFormState extends State<RidePrefForm> {
   }
 
   void _onSearch() {
-  if (departure == null || arrival == null) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Text('Please select both departure and arrival locations.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(), 
-            child: Text('OK'),
-          ),
-        ],
-      ),
-    );
-    return;
+    if (departure == null || arrival == null) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Text('Please select both departure and arrival locations.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(), 
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
   }
-}
 
   // ----------------------------------
   // Compute the widgets rendering
   // ----------------------------------
- Future<Location?> _showLocationPicker(BuildContext context, String title) async {
-    return showModalBottomSheet<Location>(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 400,
-          padding: EdgeInsets.all(BlaSpacings.m),
-          child: Column(
-            children: [
-              Text(
-                title,
-                style: BlaTextStyles.heading.copyWith(fontSize: 20),
-              ),
-              SizedBox(height: BlaSpacings.m),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: fakeLocations.length,
-                  itemBuilder: (context, index) {
-                    final location = fakeLocations[index];
-                    return ListTile(
-                      title: Text(location.name),
-                      subtitle: Text(location.country.name),
-                      onTap: () {
-                        Navigator.pop(context, location);
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
 
   String _getLocationDisplay(Location? location) {
     if (location == null) return '';
